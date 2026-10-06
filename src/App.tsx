@@ -1,5 +1,4 @@
 import { CertificateGenerator } from './components/CertificateGenerator';
-import { Award } from 'lucide-react';
 function App() {
   return (
     <div className="min-h-screen w-full bg-[#faf9f6] flex flex-col font-sans relative overflow-hidden">
