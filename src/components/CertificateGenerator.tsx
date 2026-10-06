@@ -257,9 +257,7 @@ export function CertificateGenerator() {
               <CertificatePreview ref={certificateRef} data={data} />
             </div>
           </div>
-          <p className="text-xs text-center text-gray-500 mb-6">
-            Image generated locally in your browser. No data is sent to a server.
-          </p>
+
 
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">

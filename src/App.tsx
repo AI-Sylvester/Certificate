@@ -15,8 +15,8 @@ function App() {
       
       {/* Footer */}
       <footer className="py-6 mt-auto relative z-10">
-        <div className="max-w-7xl mx-auto px-4 text-center text-xs font-medium text-amber-900/40 uppercase tracking-widest">
-          Frontend-only application • No data stored
+        <div className="max-w-7xl mx-auto px-4 text-center text-sm font-medium text-gray-500">
+          Image generated locally in your browser. No data is sent to a server.
         </div>
       </footer>
     </div>
