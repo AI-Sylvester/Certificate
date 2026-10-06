@@ -1,4 +1,22 @@
+import React from 'react';
 import { CertificateGenerator } from './components/CertificateGenerator';
+
+class ErrorBoundary extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: any) {
+    return { hasError: true, error };
+  }
+  render() {
+    if (this.state.hasError) {
+      return <div className="text-red-500 font-bold p-8 text-center text-xl">App Crashed: {this.state.error?.message}</div>;
+    }
+    return this.props.children;
+  }
+}
+
 function App() {
   return (
     <div className="min-h-screen w-full bg-[#faf9f6] flex flex-col font-sans relative overflow-hidden">
@@ -9,7 +27,9 @@ function App() {
 
       {/* Main Content */}
       <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full relative z-10 flex flex-col">
-        <CertificateGenerator />
+        <ErrorBoundary>
+          <CertificateGenerator />
+        </ErrorBoundary>
       </main>
       
       {/* Footer */}

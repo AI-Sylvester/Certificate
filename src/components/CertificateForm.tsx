@@ -69,6 +69,12 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
             type="text"
             value={data.name}
             onChange={(e) => onChange({ ...data, name: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault(); // Stop it from going to Step 3
+                e.currentTarget.blur(); // Hide the mobile keyboard so they see the photo upload buttons
+              }
+            }}
             className="w-full px-5 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-amber-500/10 focus:border-[#b48d42] outline-none transition-all font-medium text-lg"
             placeholder={data.type === 'individual' ? t.name_placeholder_individual : t.name_placeholder_family}
           />
@@ -77,7 +83,9 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
         {/* Family member count removed as requested */}
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2 tracking-wide">{t.photo_label}</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-2 tracking-wide">
+            {t.photo_label} <span className="text-red-500">*</span>
+          </label>
           <div className="mt-1 flex justify-center px-6 pt-8 pb-10 border-2 border-gray-200 border-dashed rounded-3xl hover:bg-[#b48d42]/5 hover:border-[#b48d42]/50 transition-all group">
             <div className="space-y-2 text-center w-full">
               {data.photoUrl ? (

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import * as htmlToImage from 'html-to-image';
-import { Download, Loader2, ArrowRight, Languages, Smartphone, Image as ImageIcon, Share2, FileText, Eye } from 'lucide-react';
+import { Download, Loader2, ArrowRight, ArrowLeft, Languages, Smartphone, Image as ImageIcon, Share2, FileText, Eye } from 'lucide-react';
 import { CertificateForm } from './CertificateForm';
 import { CertificatePreview } from './CertificatePreview';
 import type { CertificateData } from '../types';
@@ -215,7 +215,7 @@ export function CertificateGenerator() {
           <div className="mt-8 max-w-lg mx-auto">
             <button
               type="submit"
-              disabled={!data.name.trim()} // Name is compulsory
+              disabled={!data.name.trim() || !data.photoUrl} // Both name and photo are compulsory
               className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-[#b48d42] to-[#9c7631] hover:from-[#9c7631] hover:to-[#836227] active:scale-[0.98] shadow-lg hover:shadow-xl hover:shadow-amber-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-[#b48d42]/50"
             >
               {t.btn_next_preview}
@@ -265,8 +265,8 @@ export function CertificateGenerator() {
           </div>
 
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-3 w-full sm:w-auto">
               {/* Native Web Share API Button (Mobile mainly) */}
               <button
                 onClick={handleShare}
@@ -306,6 +306,16 @@ export function CertificateGenerator() {
                 )}
               </button>
             </div>
+            
+            {/* Redo / Edit Details Button */}
+            <button 
+              onClick={() => setStep(2)}
+              disabled={isGenerating || isSharing}
+              className="flex items-center gap-2 mt-2 text-gray-400 hover:text-gray-700 transition-colors font-semibold text-sm"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {t.btn_back_edit}
+            </button>
           </div>
 
         </div>
