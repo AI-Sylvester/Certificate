@@ -203,12 +203,18 @@ export function CertificateGenerator() {
 
       {/* Step 2: Form */}
       {step === 2 && (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <form 
+          className="animate-in fade-in slide-in-from-bottom-4 duration-300"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (data.name.trim()) setStep(3);
+          }}
+        >
           <CertificateForm data={data} onChange={setData} />
 
           <div className="mt-8 max-w-lg mx-auto">
             <button
-              onClick={() => setStep(3)}
+              type="submit"
               disabled={!data.name.trim()} // Name is compulsory
               className="w-full flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-[#b48d42] to-[#9c7631] hover:from-[#9c7631] hover:to-[#836227] active:scale-[0.98] shadow-lg hover:shadow-xl hover:shadow-amber-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed border border-[#b48d42]/50"
             >
@@ -216,7 +222,7 @@ export function CertificateGenerator() {
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
-        </div>
+        </form>
       )}
 
       {/* Step 3: Preview & Download */}

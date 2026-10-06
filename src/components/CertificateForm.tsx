@@ -86,7 +86,8 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
                     <div className="p-2 bg-white rounded-2xl shadow-sm border border-gray-100">
                       <img src={data.photoUrl} alt="Preview" className="h-24 w-24 object-contain rounded-xl" />
                     </div>
-                    <button
+                      <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         onChange({ ...data, photoUrl: null });
@@ -100,6 +101,7 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
                   
                   <div className="flex gap-2 mt-2">
                     <button 
+                      type="button"
                       onClick={() => fileInputRef.current?.click()}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-semibold transition-colors"
                     >
@@ -107,6 +109,7 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
                       Upload New
                     </button>
                     <button 
+                      type="button"
                       onClick={() => cameraInputRef.current?.click()}
                       className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-semibold transition-colors"
                     >
@@ -119,6 +122,7 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
                 <div className="flex flex-col items-center">
                   <div className="flex gap-4 sm:gap-6 mb-4">
                     <button 
+                      type="button"
                       onClick={() => fileInputRef.current?.click()}
                       className="flex flex-col items-center justify-center w-28 h-28 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-[#b48d42]/50 hover:shadow-md transition-all gap-2 text-gray-500 hover:text-[#b48d42]"
                     >
@@ -127,6 +131,7 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
                     </button>
 
                     <button 
+                      type="button"
                       onClick={() => cameraInputRef.current?.click()}
                       className="flex flex-col items-center justify-center w-28 h-28 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-[#b48d42]/50 hover:shadow-md transition-all gap-2 text-gray-500 hover:text-[#b48d42]"
                     >

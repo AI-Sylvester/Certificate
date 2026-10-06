@@ -14,8 +14,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, CertificatePreviewP
     const today = new Date();
     const dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = today.toLocaleDateString(data.language === 'ta' ? 'ta-IN' : 'en-US', dateOptions);
-    const dayOfWeek = today.toLocaleDateString(data.language === 'ta' ? 'ta-IN' : 'en-US', { weekday: 'long' });
-    const bodyText = t.cert_body.replace('{day}', dayOfWeek);
+    const bodyText = t.cert_body.replace('{day}', formattedDate);
 
     return (
       <div 
@@ -156,6 +155,13 @@ export const CertificatePreview = forwardRef<HTMLDivElement, CertificatePreviewP
             </div>
           </div>
           
+          {/* Generation Timestamp Footer */}
+          <div className={`absolute left-1/2 -translate-x-1/2 font-sans font-medium text-black/40 whitespace-nowrap ${
+            data.format === 'story' ? 'bottom-[2cqw] text-[1.5cqw]' : 'bottom-[1.5cqw] text-[0.8cqw]'
+          }`}>
+            Generated: {String(today.getDate()).padStart(2, '0')}/{String(today.getMonth() + 1).padStart(2, '0')}/{today.getFullYear()} {today.toLocaleTimeString(data.language === 'ta' ? 'ta-IN' : 'en-US', { hour: '2-digit', minute: '2-digit' })}
+          </div>
+
         </div>
       </div>
     );
