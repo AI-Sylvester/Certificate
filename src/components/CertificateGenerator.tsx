@@ -92,6 +92,15 @@ export function CertificateGenerator() {
       };
 
       if (navigator.canShare && navigator.canShare(shareData)) {
+        // Trigger download first
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = getFileName();
+        link.click();
+        URL.revokeObjectURL(url);
+
+        // Then open share dialog
         await navigator.share(shareData);
         // Clear and move to home page after successful share
         setTimeout(() => resetForm(), 500);
@@ -122,7 +131,7 @@ export function CertificateGenerator() {
               className="relative w-24 h-24 sm:w-28 sm:h-28 object-contain bg-white rounded-full shadow-lg border-4 border-white p-1"
             />
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 tracking-tight text-center px-4">St. Theresa Church</h1>
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-gray-900 tracking-tight text-center px-4">St. Theresa's Church</h1>
           <div className="flex items-center gap-3 sm:gap-4 mt-3">
             <div className="h-[1px] w-6 sm:w-8 bg-[#b48d42]/40"></div>
             <p className="text-[#b48d42] font-semibold text-xs sm:text-sm uppercase tracking-widest text-center">Certificate Generator</p>
@@ -180,7 +189,16 @@ export function CertificateGenerator() {
       {step === 1 && (
         <div className="bg-white p-8 sm:p-12 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 max-w-lg mx-auto text-center relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(180,141,66,0.08)] transition-shadow duration-500">
           <Languages className="w-12 h-12 sm:w-16 sm:h-16 text-[#b48d42] mx-auto mb-6 relative z-10" />
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-8 relative z-10">Choose Your Language<br /><span className="text-lg sm:text-xl text-gray-500 font-sans font-normal mt-2 block">மொழியைத் தேர்ந்தெடுக்கவும்</span></h2>
+          <div className="relative z-10 mb-8">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-4">
+              Get your Certificate<br />
+              <span className="text-lg sm:text-xl font-medium text-gray-600 font-sans mt-2 block">for attending Holy Mass today</span>
+            </h2>
+            <div className="text-sm sm:text-base font-bold text-gray-400 uppercase tracking-widest mt-6 mb-2">
+              Choose Your Language
+              <span className="block mt-1 text-xs font-medium normal-case">மொழியைத் தேர்ந்தெடுக்கவும்</span>
+            </div>
+          </div>
 
           <div className="flex flex-col gap-4 sm:gap-5 relative z-10">
             <button
@@ -198,12 +216,45 @@ export function CertificateGenerator() {
               <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
             </button>
           </div>
+
+          {/* How it Works Section */}
+          <details className="mt-8 text-left relative z-10 group">
+            <summary className="text-xs font-bold text-[#b48d42] uppercase tracking-widest text-center flex items-center justify-center gap-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden outline-none hover:opacity-80 transition-opacity">
+              <div className="h-[1px] flex-1 bg-gray-200"></div>
+              <span className="flex items-center gap-1.5">
+                How It Works
+                <svg className="w-4 h-4 transform group-open:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </span>
+              <div className="h-[1px] flex-1 bg-gray-200"></div>
+            </summary>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6 animate-in slide-in-from-top-4 fade-in duration-300">
+              <div className="flex flex-col items-center text-center p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center text-[#b48d42] font-bold mb-3 border border-[#b48d42]/20">1</div>
+                <h4 className="font-semibold text-gray-800 text-sm mb-1">Enter Details</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">Type your individual or family name accurately.</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center text-[#b48d42] font-bold mb-3 border border-[#b48d42]/20">2</div>
+                <h4 className="font-semibold text-gray-800 text-sm mb-1">Upload Photo</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">Upload a nice picture or snap a quick selfie.</p>
+              </div>
+              <div className="flex flex-col items-center text-center p-5 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center text-[#b48d42] font-bold mb-3 border border-[#b48d42]/20">3</div>
+                <h4 className="font-semibold text-gray-800 text-sm mb-1">Generate 4K</h4>
+                <p className="text-xs text-gray-500 leading-relaxed">Download or directly share your certificate!</p>
+              </div>
+            </div>
+          </details>
+
+          <div className="mt-8 pt-6 border-t border-gray-100 text-xs sm:text-sm text-gray-400">
+            <span className="font-semibold text-gray-500">Terms & Conditions:</span> Image generated locally in your browser. No data is sent to a server.
+          </div>
         </div>
       )}
 
       {/* Step 2: Form */}
       {step === 2 && (
-        <form 
+        <form
           className="animate-in fade-in slide-in-from-bottom-4 duration-300"
           onSubmit={(e) => {
             e.preventDefault();
@@ -235,8 +286,8 @@ export function CertificateGenerator() {
               <button
                 onClick={() => setData({ ...data, format: 'normal' })}
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${data.format === 'normal'
-                    ? 'bg-white text-[#b48d42] shadow-sm'
-                    : 'text-gray-500 hover:text-gray-700'
+                  ? 'bg-white text-[#b48d42] shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
                   }`}
               >
                 <ImageIcon className="w-5 h-5" />
@@ -245,8 +296,8 @@ export function CertificateGenerator() {
               <button
                 onClick={() => setData({ ...data, format: 'story' })}
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${data.format === 'story'
-                    ? 'bg-white text-[#b48d42] shadow-sm'
-                    : 'text-gray-500 hover:text-gray-700'
+                  ? 'bg-white text-[#b48d42] shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
                   }`}
               >
                 <Smartphone className="w-5 h-5" />
@@ -257,8 +308,8 @@ export function CertificateGenerator() {
 
           <div className="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100 mb-6 flex justify-center bg-gray-50/50">
             <div className={`w-full overflow-hidden rounded-lg shadow-sm border border-gray-200 mx-auto transition-all ${data.format === 'story'
-                ? 'max-w-[180px] sm:max-w-[220px]' // Much narrower for tall story format so it fits on screen
-                : 'max-w-[320px] sm:max-w-[500px]' // Narrower for normal format
+              ? 'max-w-[180px] sm:max-w-[220px]' // Much narrower for tall story format so it fits on screen
+              : 'max-w-[320px] sm:max-w-[500px]' // Narrower for normal format
               }`}>
               <CertificatePreview ref={certificateRef} data={data} />
             </div>
@@ -272,8 +323,8 @@ export function CertificateGenerator() {
                 onClick={handleShare}
                 disabled={isSharing || isGenerating}
                 className={`flex items-center justify-center gap-2 py-4 px-6 rounded-2xl font-bold text-lg transition-all shadow-md hover:shadow-lg border-2 ${isSharing || isGenerating
-                    ? 'border-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'border-[#b48d42] text-[#b48d42] bg-white hover:bg-amber-50 active:scale-[0.98]'
+                  ? 'border-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'border-[#b48d42] text-[#b48d42] bg-white hover:bg-amber-50 active:scale-[0.98]'
                   }`}
               >
                 {isSharing ? (
@@ -289,8 +340,8 @@ export function CertificateGenerator() {
                 onClick={handleDownload}
                 disabled={isGenerating || isSharing}
                 className={`flex items-center justify-center gap-2 py-4 px-8 rounded-2xl font-bold text-lg text-white transition-all shadow-lg hover:shadow-xl hover:shadow-amber-900/20 border border-white/20 ${isGenerating || isSharing
-                    ? 'bg-amber-300 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-[#b48d42] to-[#9c7631] hover:from-[#9c7631] hover:to-[#836227] active:scale-[0.98]'
+                  ? 'bg-amber-300 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-[#b48d42] to-[#9c7631] hover:from-[#9c7631] hover:to-[#836227] active:scale-[0.98]'
                   }`}
               >
                 {isGenerating ? (
@@ -306,9 +357,9 @@ export function CertificateGenerator() {
                 )}
               </button>
             </div>
-            
+
             {/* Redo / Edit Details Button */}
-            <button 
+            <button
               onClick={() => setStep(2)}
               disabled={isGenerating || isSharing}
               className="flex items-center gap-2 mt-2 text-gray-400 hover:text-gray-700 transition-colors font-semibold text-sm"

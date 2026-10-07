@@ -84,7 +84,7 @@ export function CertificateForm({ data, onChange }: CertificateFormProps) {
 
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2 tracking-wide">
-            {t.photo_label} <span className="text-red-500">*</span>
+            {data.type === 'individual' ? t.photo_label_individual : t.photo_label_family} <span className="text-red-500">*</span>
           </label>
           <div className="mt-1 flex justify-center px-6 pt-8 pb-10 border-2 border-gray-200 border-dashed rounded-3xl hover:bg-[#b48d42]/5 hover:border-[#b48d42]/50 transition-all group">
             <div className="space-y-2 text-center w-full">

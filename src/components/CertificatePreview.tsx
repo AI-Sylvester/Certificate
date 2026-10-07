@@ -96,15 +96,28 @@ export const CertificatePreview = forwardRef<HTMLDivElement, CertificatePreviewP
             data.format === 'story' ? 'mt-[3cqw] mb-[2cqw]' : 'mt-[1cqw] mb-[1cqw]'
           }`}>
             {data.photoUrl ? (
-              <img 
-                src={data.photoUrl} 
-                alt="Participant" 
-                className={`relative object-contain bg-white border-white shadow-[0_1.5cqw_3cqw_rgb(0,0,0,0.3)] ring-[#b48d42]/60 z-10 ${
+              <div className={`relative z-10 flex items-center justify-center bg-gradient-to-br from-[#3d2314] via-[#6b4226] to-[#2b180d] shadow-[0_2cqw_4cqw_rgb(0,0,0,0.5),inset_0_0_0.8cqw_rgb(0,0,0,0.8)] border border-[#1a0f08] ${
                   data.format === 'story'
-                    ? (data.type === 'individual' ? 'w-[32cqw] h-[32cqw] rounded-full border-[0.6cqw] ring-[0.6cqw]' : 'w-[48cqw] h-[32cqw] rounded-3xl border-[0.6cqw] ring-[0.6cqw]')
-                    : (data.type === 'individual' ? 'w-[16cqw] h-[16cqw] rounded-full border-[0.4cqw] ring-[0.4cqw]' : 'w-[24cqw] h-[16cqw] rounded-2xl border-[0.4cqw] ring-[0.4cqw]')
-                }`}
-              />
+                    ? (data.type === 'individual' ? 'p-[1.5cqw] rounded-full' : 'p-[1.5cqw] rounded-3xl')
+                    : (data.type === 'individual' ? 'p-[0.8cqw] rounded-full' : 'p-[0.8cqw] rounded-2xl')
+              }`}>
+                {/* Inner white matte */}
+                <div className={`bg-[#fdfbf7] shadow-[inset_0_0_0.5cqw_rgba(0,0,0,0.3)] flex items-center justify-center ${
+                  data.format === 'story'
+                    ? (data.type === 'individual' ? 'p-[0.6cqw] rounded-full' : 'p-[0.6cqw] rounded-[1.25rem]')
+                    : (data.type === 'individual' ? 'p-[0.3cqw] rounded-full' : 'p-[0.3cqw] rounded-xl')
+                }`}>
+                  <img 
+                    src={data.photoUrl} 
+                    alt="Participant" 
+                    className={`relative object-cover shadow-[inset_0_0_1cqw_rgba(0,0,0,0.2)] ${
+                      data.format === 'story'
+                        ? (data.type === 'individual' ? 'w-[28cqw] h-[28cqw] rounded-full' : 'w-[44cqw] h-[28cqw] rounded-2xl')
+                        : (data.type === 'individual' ? 'w-[14.5cqw] h-[14.5cqw] rounded-full' : 'w-[21.5cqw] h-[14.5cqw] rounded-[0.65rem]')
+                    }`}
+                  />
+                </div>
+              </div>
             ) : (
               <div 
                 className={`relative bg-white/80 backdrop-blur-sm border-white shadow-lg flex items-center justify-center text-gray-800 font-bold z-10 ${
